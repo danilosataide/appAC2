@@ -1,20 +1,67 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import {View, Text, Button} from 'react-native'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
+
+import Aluno from './componentes/Aluno';
+import Disciplina from './componentes/Disciplina';
+import Professor from './componentes/Professor';
+import Turma from './componentes/Turma';
+import Historico from './componentes/Historico';
+
+const Pilha = createNativeStackNavigator();
+
+function TelaPrincipal(props){
+  return(
+    <View>
+        <Text>APP UNIVERSIDADE</Text>
+
+        <Button
+                style = {{backgroundColor:'blue'}}
+                title = "Aluno"
+                onPress = {()=>props.navigation.navigate('Aluno')} 
+        />
+        <Button
+                style = {{backgroundColor:'blue'}}
+                title = "Disciplina"
+                onPress = {()=>props.navigation.navigate('Disciplina')} 
+        />
+        <Button
+                style = {{backgroundColor:'blue'}}
+                title = "Professor"
+                onPress = {()=>props.navigation.navigate('Professor')} 
+        />
+        <Button
+                style = {{backgroundColor:'blue'}}
+                title = "Turma"
+                onPress = {()=>props.navigation.navigate('Turma')} 
+        />
+        <Button
+                style = {{backgroundColor:'blue'}}
+                title = "Histórico"
+                onPress = {()=>props.navigation.navigate('Historico')} 
+        />
+
+
+    </View>    
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+export default function App(){
+    return(
+
+        <NavigationContainer independent={true}>
+            <Pilha.Navigator>
+                <Pilha.Screen name='TelaPrincipal' component={TelaPrincipal} options={{title:'Principal'}}/>
+                <Pilha.Screen name='Aluno' component={Aluno}/>
+                <Pilha.Screen name='Disciplina' component={Disciplina}/>
+                <Pilha.Screen name='Professor' component={Professor}/>
+                <Pilha.Screen name='Turma' component={Turma}/>
+                <Pilha.Screen name='Historico' component={Historico}/>
+            </Pilha.Navigator>
+        </NavigationContainer>
+        
+    )
+}

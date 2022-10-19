@@ -1,0 +1,67 @@
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import {getFirestore, collection, getDocs, setDoc, doc} from 'firebase/firestore';
+import db from './config.js';
+
+export default function App() {
+
+
+  const [alunos, setAlunos] = useState([]);
+  const collectRef = collection(db, 'Aluno')
+
+
+  //gravacao de Dados
+  // addDoc(collection(db, "Aluno"), {
+  //   nome: "Danilo da Silva",
+  //   matricula: "200886",
+  //   foto: "Dasdasdasdasd",
+  //   endereço: "Rua A 45 Bairro C",
+  //   cidade: "Sorocaba"
+  // });
+
+  //obtem a colecao de Dados
+  // getDocs(collectRef)
+  //   .then((snapshot)=>{
+      
+
+  //     for (let i = 0; i < snapshot.docs.length; i++) {
+  //         console.log('Alunos [',i,']: ',snapshot.docs[i].data)
+  //     }
+  //   })
+  //   .catch(err => {
+  //     console.log(err.message)
+  //   })
+
+
+  async function getAlunos() {
+      const result = await fetch(
+        getDocs(collectRef)
+          .then((snapshot)=>{
+            console.log(snapshot.docs)
+
+            for (let i = 0; i < snapshot.docs.length; i++) {
+                console.log('Alunos [',i,']: ',snapshot.docs[i].data)
+            }
+          })
+          .catch(err => {
+            console.log(err.message)
+          })
+      );
+      const dados = await result.json()
+      setAlunos(dados);
+  }
+
+  useEffect(() => {
+    getAlunos()
+  }, []);
+
+  // useEffect(() => getDocs(collectRef).then(snapshot => console.log(snapshot.docs)), [])
+
+  return (
+    <View>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
