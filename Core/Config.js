@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore'
 
-// TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBAgg5lKItnlGL3atmkHurfslL0-23aJFs",
     authDomain: "ac2mobile-b5738.firebaseapp.com",
