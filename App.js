@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, Text, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -8,10 +9,15 @@ import Professor from './componentes/Professor';
 import Turma from './componentes/Turma';
 import Historico from './componentes/Historico';
 import TurmasCadastradas from './componentes/TurmasCadastradas';
+import Configuracoes from './componentes/Configuracoes';
 
 const Pilha = createNativeStackNavigator();
 
 function TelaPrincipal(props) {
+  useEffect(() => {
+    console.log(AsyncStorage.getItem('BACKGROUND'))
+  }, [props])
+
   return (
     <View>
       <Text>APP UNIVERSIDADE</Text>
@@ -46,6 +52,11 @@ function TelaPrincipal(props) {
         title="Turmas cadastradas"
         onPress={() => props.navigation.navigate('TurmasCadastradas')}
       />
+      <Button
+        style={{backgroundColor: 'blue'}}
+        title="Configuracoes"
+        onPress={() => props.navigation.navigate('Configuracoes')}
+      />
 
     </View>
   );
@@ -64,6 +75,7 @@ export default function App() {
         <Pilha.Screen name='Turma' component={Turma}/>
         <Pilha.Screen name='Historico' component={Historico}/>
         <Pilha.Screen name='TurmasCadastradas' component={TurmasCadastradas}/>
+        <Pilha.Screen name='Configuracoes' component={Configuracoes}/>
       </Pilha.Navigator>
     </NavigationContainer>
 

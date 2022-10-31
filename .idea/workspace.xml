@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ce75a47-9ba2-4660-bd38-4af213f69142" name="Changes" comment="create(turmasCadastradas): new page">
-      <change afterPath="$PROJECT_DIR$/.idea/appAC2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/aff.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/componentes/TurmasCadastradas.js" afterDir="false" />
+    <list default="true" id="6ce75a47-9ba2-4660-bd38-4af213f69142" name="Changes" comment="create(turmasCadastradas): new page 2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/Aluno CRUD.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Aluno CRUD.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
@@ -24,6 +16,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
     <option name="recentBranches">
       <RecentBranches>
         <option name="branchesForRepo">
@@ -56,16 +49,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/santiago/Documentos/Santiago/appAC2/assets",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/santiago/Documentos/Santiago/appAC2/assets&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets" />
@@ -80,8 +73,26 @@
       <option name="presentableId" value="Default" />
       <updated>1666910816397</updated>
       <workItem from="1666910819064" duration="122000" />
-      <workItem from="1666911009619" duration="5066000" />
+      <workItem from="1666911009619" duration="5125000" />
+      <workItem from="1666921932937" duration="16000" />
+      <workItem from="1666955549464" duration="67000" />
+      <workItem from="1667248088429" duration="1542000" />
     </task>
+    <task id="LOCAL-00001" summary="create(turmasCadastradas): new page">
+      <created>1666916953781</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1666916953781</updated>
+    </task>
+    <task id="LOCAL-00002" summary="create(turmasCadastradas): new page 2">
+      <created>1666916965151</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666916965151</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,6 +111,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="create(turmasCadastradas): new page" />
-    <option name="LAST_COMMIT_MESSAGE" value="create(turmasCadastradas): new page" />
+    <MESSAGE value="create(turmasCadastradas): new page 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="create(turmasCadastradas): new page 2" />
   </component>
 </project>
