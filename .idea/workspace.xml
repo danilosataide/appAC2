@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ce75a47-9ba2-4660-bd38-4af213f69142" name="Changes" comment="create(turmasCadastradas): new page 2">
+    <list default="true" id="6ce75a47-9ba2-4660-bd38-4af213f69142" name="Changes" comment="feature(configuracoes): added currentBackgrount to other pages">
+      <change afterPath="$PROJECT_DIR$/context/current-background.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componentes/Aluno.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Aluno.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componentes/Configuracoes.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Configuracoes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componentes/Disciplina.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Disciplina.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componentes/Historico.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Historico.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componentes/Professor.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Professor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componentes/Turma.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Turma.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/componentes/TurmasCadastradas.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/TurmasCadastradas.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,16 +55,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/santiago/Documentos/Santiago/appAC2/assets&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/santiago/Documentos/Santiago/appAC2/assets",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/home/santiago/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/222.4345.14/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets" />
@@ -76,7 +83,9 @@
       <workItem from="1666911009619" duration="5125000" />
       <workItem from="1666921932937" duration="16000" />
       <workItem from="1666955549464" duration="67000" />
-      <workItem from="1667248088429" duration="1542000" />
+      <workItem from="1667248088429" duration="1925000" />
+      <workItem from="1667302467698" duration="159000" />
+      <workItem from="1667421513052" duration="6125000" />
     </task>
     <task id="LOCAL-00001" summary="create(turmasCadastradas): new page">
       <created>1666916953781</created>
@@ -92,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666916965151</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="create(configurationPage): new page">
+      <created>1667249693677</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667249693677</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,6 +128,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="create(turmasCadastradas): new page" />
     <MESSAGE value="create(turmasCadastradas): new page 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="create(turmasCadastradas): new page 2" />
+    <MESSAGE value="create(configurationPage): new page" />
+    <MESSAGE value="feature(configuracoes): added currentBackgrount to other pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature(configuracoes): added currentBackgrount to other pages" />
   </component>
 </project>
