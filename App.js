@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button, Text, View } from 'react-native'
+import React, { useContext } from 'react'
+import { Button, ImageBackground, Text, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Aluno from './componentes/Aluno';
@@ -10,16 +9,16 @@ import Turma from './componentes/Turma';
 import Historico from './componentes/Historico';
 import TurmasCadastradas from './componentes/TurmasCadastradas';
 import Configuracoes from './componentes/Configuracoes';
+import { BackgroundContext, CurrentBackgroundContext } from "./context/current-background";
 
 const Pilha = createNativeStackNavigator();
 
 function TelaPrincipal(props) {
-  useEffect(() => {
-    console.log(AsyncStorage.getItem('BACKGROUND'))
-  }, [props])
+  const { currentBackground } = useContext(BackgroundContext);
 
   return (
-    <View>
+    <View style={{height: '100%'}}>
+      <ImageBackground style={{ height: '100%' }} source={currentBackground}>
       <Text>APP UNIVERSIDADE</Text>
 
       <Button
@@ -57,7 +56,7 @@ function TelaPrincipal(props) {
         title="Configuracoes"
         onPress={() => props.navigation.navigate('Configuracoes')}
       />
-
+      </ImageBackground>
     </View>
   );
 }
@@ -65,19 +64,19 @@ function TelaPrincipal(props) {
 
 export default function App() {
   return (
-
-    <NavigationContainer independent={true}>
-      <Pilha.Navigator>
-        <Pilha.Screen name='TelaPrincipal' component={TelaPrincipal} options={{title: 'Principal'}}/>
-        <Pilha.Screen name='Aluno' component={Aluno}/>
-        <Pilha.Screen name='Disciplina' component={Disciplina}/>
-        <Pilha.Screen name='Professor' component={Professor}/>
-        <Pilha.Screen name='Turma' component={Turma}/>
-        <Pilha.Screen name='Historico' component={Historico}/>
-        <Pilha.Screen name='TurmasCadastradas' component={TurmasCadastradas}/>
-        <Pilha.Screen name='Configuracoes' component={Configuracoes}/>
-      </Pilha.Navigator>
-    </NavigationContainer>
-
+    <CurrentBackgroundContext>
+      <NavigationContainer independent={true}>
+        <Pilha.Navigator>
+          <Pilha.Screen name='TelaPrincipal' component={TelaPrincipal} options={{title: 'Principal'}}/>
+          <Pilha.Screen name='Aluno' component={Aluno}/>
+          <Pilha.Screen name='Disciplina' component={Disciplina}/>
+          <Pilha.Screen name='Professor' component={Professor}/>
+          <Pilha.Screen name='Turma' component={Turma}/>
+          <Pilha.Screen name='Historico' component={Historico}/>
+          <Pilha.Screen name='TurmasCadastradas' component={TurmasCadastradas}/>
+          <Pilha.Screen name='Configuracoes' component={Configuracoes}/>
+        </Pilha.Navigator>
+      </NavigationContainer>
+    </CurrentBackgroundContext>
   )
 }

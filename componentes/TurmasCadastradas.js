@@ -1,7 +1,9 @@
-import { Button, FlatList, Image, Modal, Text, View } from "react-native";
-import { useState } from "react";
+import { Button, FlatList, Image, ImageBackground, Modal, Text, View } from "react-native";
+import { useContext, useState } from "react";
+import { BackgroundContext } from "../context/current-background";
 
 export default function TurmasCadastradas() {
+  const {currentBackground} = useContext(BackgroundContext);
   const [turmaModal, setTurmaModal] = useState(false);
   const [turmas, setTurmas] = useState([
     {
@@ -20,7 +22,8 @@ export default function TurmasCadastradas() {
 
 
   return(
-    <View>
+    <View style={{height: '100%'}}>
+      <ImageBackground style={{height: '100%'}} source={currentBackground}>
       <Text style={{fontSize: '2rem', color: 'blue', textAlign: 'center'}}>Turmas</Text>
 
       <FlatList
@@ -56,6 +59,7 @@ export default function TurmasCadastradas() {
           ></Button>
         </View>
       </Modal>
+      </ImageBackground>
     </View>
   )
 }

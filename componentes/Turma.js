@@ -1,7 +1,9 @@
-import { Text, View, TextInput, Button, FlatList } from 'react-native';
-import { useState } from 'react';
+import { Text, View, TextInput, Button, FlatList, ImageBackground } from 'react-native';
+import { useContext, useState } from 'react';
+import { BackgroundContext } from "../context/current-background";
 
 export default function Turma() {
+  const {currentBackground} = useContext(BackgroundContext);
   const [turmas, setTurmas] = useState([]);
   const [formTurmas, setFormTurmas] = useState({
     cod_disc: '',
@@ -11,7 +13,8 @@ export default function Turma() {
   });
 
   return (
-    <View>
+    <View style={{height: '100%'}}>
+      <ImageBackground style={{height: '100%'}} source={currentBackground}>
       <Text style={{ marginTop: '1rem' }}>Codigo da disciplina</Text>
       <TextInput
         style={{ border: '1px solid #000000' }}
@@ -59,6 +62,7 @@ export default function Turma() {
           Disciplina: {item.cod_disc}, Professor: {item.cod_prof}, Ano: {item.ano}, Horario: {item.horario}
         </Text>}
       />
+      </ImageBackground>
     </View>
   );
 }
