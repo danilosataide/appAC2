@@ -1,68 +1,176 @@
-import { Button, FlatList, ImageBackground, Text, TextInput, View } from 'react-native';
-import { useContext, useState } from 'react';
+import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { useContext, useState, useEffect } from 'react';
 import { BackgroundContext } from "../context/current-background";
 
+import { deleteDoc, query, collection, onSnapshot, doc, getDoc, setDoc, addDoc } from 'firebase/firestore';
+import { db } from '../Core/Config';
+
 export default function Aluno() {
+  const myDoc = collection(db, "Aluno");
+
   const { currentBackground } = useContext(BackgroundContext);
+
+  const [idToEdit, setIdToEdit] = useState();
   const [alunos, setAlunos] = useState([]);
   const [formAlunos, setFormAlunos] = useState({
+    matricula: '',
     nome: '',
     endereco: '',
     cidade: '',
     foto: '',
   });
 
+  useEffect(() => {
+    const q = query(collection(db, "Aluno"));
+    onSnapshot(q, (querySnapshot) => {
+      const result = [];
+      querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
+      setAlunos(result);
+    });
+  }, []);
+
+  const postAluno = (value) => {
+    addDoc(myDoc, value)
+      .then(() => alert("Aluno Salvo!"))
+      .catch((error) => alert(error.message));
+  }
+
+  const addToEditMode = (personData) => {
+    setIdToEdit(personData.id);
+    setFormAlunos(personData);
+  }
+
+
   return (
-    <View style={{ height: '100%' }}>
+    <View style={styles.container}>
       <ImageBackground style={{ height: '100%' }} source={currentBackground}>
-        <Text style={{marginTop: '1rem'}}>Nome</Text>
-        <TextInput
-          style={{border: '1px solid #000000'}}
-          value={formAlunos.nome}
-          onChangeText={nome => setFormAlunos({...formAlunos, nome})}
-        />
+        <View style={styles.form}>
+          <Text style={styles.texto}>Matrícula</Text>
+          <TextInput
+            style={styles.input}
+            value={formAlunos.matricula}
+            onChangeText={matricula => setFormAlunos({...formAlunos, matricula})}
+          />
 
-        <Text style={{marginTop: '1rem'}}>Endereco</Text>
-        <TextInput
-          style={{border: '1px solid #000000'}}
-          value={formAlunos.endereco}
-          onChangeText={endereco => setFormAlunos({...formAlunos, endereco})}
-        />
+          <Text style={styles.texto}>Nome</Text>
+          <TextInput
+            style={styles.input}
+            value={formAlunos.nome}
+            onChangeText={nome => setFormAlunos({...formAlunos, nome})}
+          />
 
-        <Text style={{marginTop: '1rem'}}>Cidade</Text>
-        <TextInput
-          style={{border: '1px solid #000000'}}
-          value={formAlunos.cidade}
-          onChangeText={cidade => setFormAlunos({...formAlunos, cidade})}
-        />
+          <Text style={styles.texto}>Endereco</Text>
+          <TextInput
+            style={styles.input}
+            value={formAlunos.endereco}
+            onChangeText={endereco => setFormAlunos({...formAlunos, endereco})}
+          />
 
-        <Text style={{marginTop: '1rem'}}>URL da foto</Text>
-        <TextInput
-          style={{border: '1px solid #000000'}}
-          value={formAlunos.foto}
-          onChangeText={foto => setFormAlunos({...formAlunos, foto})}
-        />
+          <Text style={styles.texto}>Cidade</Text>
+          <TextInput
+            style={styles.input}
+            value={formAlunos.cidade}
+            onChangeText={cidade => setFormAlunos({...formAlunos, cidade})}
+          />
 
-        <Button
-          title="Salvar Aluno"
-          onPress={() => {
-            setAlunos([...alunos, formAlunos]);
-            setFormAlunos({
-              nome: '',
-              endereco: '',
-              cidade: '',
-              foto: '',
-            });
-          }}
-        />
+          <Text style={styles.texto}>URL da foto</Text>
+          <TextInput
+            style={styles.input}
+            value={formAlunos.foto}
+            onChangeText={foto => setFormAlunos({...formAlunos, foto})}
+          />
 
+          <View style={styles.button}>
+            <Button
+              title={idToEdit ? 'Editar Aluno' : 'Adicionar Aluno'}
+              color="#2196F3"
+              onPress={async () => {
+                if (idToEdit) {
+                  setDoc(doc(db, "Aluno", idToEdit), {
+                    matricula: formAlunos.matricula,
+                    nome: formAlunos.nome,
+                    endereco: formAlunos.email,
+                    cidade: formAlunos.celular,
+                    foto: formAlunos.foto
+                  },{merge:true})
+                  .then(() => {
+                    alert("Alterações salvas!")
+                  })
+                  .catch((error) => {
+                    alert(error.message)
+                  });
+                  
+                  alunos.forEach((aluno, index) => {
+                    if (aluno.id === idToEdit)
+                      alunos[index] = { ...formAlunos, id: idToEdit};
+                    else
+                      alunos[index] = aluno;
+                  });
+      
+                  setIdToEdit(undefined);
+                  setAlunos(alunos);
+                } else {
+                  setAlunos([...alunos, formAlunos]);
+                  await postAluno(formAlunos);
+                }
+
+                setFormAlunos({
+                  nome: '',
+                  endereco: '',
+                  cidade: '',
+                  foto: '',
+                });
+              }}
+            />
+          </View>
+        </View>
+        
         <FlatList
-          data={alunos}
-          renderItem={({item, index}) => <Text key={index}>
-            Nome: {item.nome}, Endereco: {item.endereco}, Cidade: {item.cidade}, Foto: {item.foto}
-          </Text>}
-        />
+            data={alunos}
+            renderItem={({ item, index }) => <>
+              <Text key={index}>
+                Matrícula: {item.matricula},Nome: {item.nome}, endereço: {item.endereço}, cidade: {item.cidade}, foto: {item.foto}
+              </Text>
+              <Button 
+                title="Editar"
+                onPress={() => addToEditMode(item)}  
+                style={{
+                  marginBottom: 10,
+                  background: 'black',
+                  color: 'blue',
+                  padding: 5,
+                  textAlign: 'center',
+                }}
+              />
+            </>
+            }
+          />
       </ImageBackground>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+  },  
+  form:{
+    padding: 20,
+    backgroundColor: '#79bdf2',
+  },
+  texto: {
+    marginTop: '1rem',
+    fontWeight: 'bold', 
+    color: "#fff"//2196F3
+  },
+  button: {
+    paddingVertical: '1rem',
+  },
+  input: {
+    marginTop: 2,
+    border: '2px solid #2196F3',
+    backgroundColor: '#fff'
+  }
+});
+
+
