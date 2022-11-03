@@ -39,7 +39,6 @@ export default function Professor() {
     setFormProfessores(personData);
   }
 
-
   return (
     <View style={styles.container}>
       <ImageBackground style={{ height: '100%' }} source={currentBackground}>
