@@ -1,4 +1,4 @@
-import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet } from 'react-native';
 import { useContext, useState, useEffect } from 'react';
 import { BackgroundContext } from "../context/current-background";
 
@@ -87,11 +87,11 @@ export default function Aluno() {
               onPress={async () => {
                 if (idToEdit) {
                   setDoc(doc(db, "Aluno", idToEdit), {
+                    cidade: formAlunos.cidade,
+                    endereco: formAlunos.endereco,
+                    foto: formAlunos.foto,
                     matricula: formAlunos.matricula,
                     nome: formAlunos.nome,
-                    endereco: formAlunos.email,
-                    cidade: formAlunos.celular,
-                    foto: formAlunos.foto
                   },{merge:true})
                   .then(() => {
                     alert("Alterações salvas!")
@@ -134,13 +134,6 @@ export default function Aluno() {
               <Button 
                 title="Editar"
                 onPress={() => addToEditMode(item)}  
-                style={{
-                  marginBottom: 10,
-                  background: 'black',
-                  color: 'blue',
-                  padding: 5,
-                  textAlign: 'center',
-                }}
               />
             </>
             }
