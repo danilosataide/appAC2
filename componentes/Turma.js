@@ -1,7 +1,6 @@
-import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet } from 'react-native';
+import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet, Picker } from 'react-native';
 import { useContext, useState, useEffect } from 'react';
 import { BackgroundContext } from "../context/current-background";
-import RNPickerSelect from 'react-native-picker-select';
 import SelectDropdown from 'react-native-select-dropdown'
 
 import { deleteDoc, query, collection, onSnapshot, doc, getDoc, setDoc, addDoc } from 'firebase/firestore';
@@ -9,10 +8,23 @@ import { db } from '../Core/Config';
 
 export default function Turma() {
   const myDoc = collection(db, "Turma");
-
   const {currentBackground} = useContext(BackgroundContext);
+
   const [disciplinas, setDisciplinas] = useState([]);
-  const [disc, setDisc] = useState();
+  const [disciplinaSelecionada, setDisciplinaSelecionada] = useState([
+    ''
+  ]);
+
+  const [professores, setProfessor] = useState([]);
+  const [professorSelecionado, setProfessorSelecionado] = useState([
+    
+  ]);
+
+  useEffect(() => {
+    console.log("Disciplina Selecionada: ", disciplinaSelecionada)
+    console.log("Professor Selecionado: ", professorSelecionado)
+  })
+
   const [turmas, setTurmas] = useState([]);
   const [formTurmas, setFormTurmas] = useState({
     cod_turma: '',
@@ -29,61 +41,52 @@ export default function Turma() {
       querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
       setDisciplinas(result);
     });
+
+    const p = query(collection(db, "Professor"));
+    onSnapshot(p, (querySnapshot) => {
+      const result = [];
+      querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
+      setProfessor(result);
+    });
   }, []);
 
   return (
     <View style={styles.container}>
       <ImageBackground style={{height: '100%'}} source={currentBackground}>
       <View style={styles.form}>
-        <Text style={styles.texto}>Codigo da disciplina</Text>
-        <TextInput
-          style={styles.input}
-          value={formTurmas.cod_disc}
-          onChangeText={cod_disc => setFormTurmas({ ...formTurmas, cod_disc }) }
-        />
-
-        {/* <RNPickerSelect
-          onValueChange={(value) => console.log(value)}
-          items={[
-              { label: 'Football', value: 'football' },
-              { label: 'Baseball', value: 'baseball' },
-              { label: 'Hockey', value: 'hockey' },
-          ]}
-        /> */}
         <View style={styles.dropdown}>
           <Text style={styles.texto}>Disciplina</Text>
-          <SelectDropdown 
-            dropdownOverlayColor="#2196F3"
-            dropdownBackgroundColor="red"
-            defaultButtonText="Selecione uma Disciplina"
-            data={disciplinas}
-            color="black"
-            onSelect={async (selectedItem, index) => {
-              console.log(selectedItem, index)
-              // cod_disc => setFormTurmas({ ...formTurmas, cod_disc })
-              console.log("Selecionado: ", selectedItem.id)
-              setDisc(selectedItem.id)
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              // text represented after item is selected
-              // if data array is an array of objects then return selectedItem.property to render after item is selected
-              return selectedItem.nome_disc
-            }}
-            rowTextForSelection={(item, index) => {
-              // text represented for each item in dropdown
-              // if data array is an array of objects then return item.property to represent item in dropdown
-              return item.nome_disc
-            }}
-          />
+          <Picker
+            selectedValue={disciplinaSelecionada}
+            style={{ height: 50 }}
+            onValueChange={(itemValue) => setDisciplinaSelecionada(itemValue)}
+            // onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+          >
+            <Picker.Item label="Seleciona uma disciplina" value=""/>
+            {
+              disciplinas.map(disciplina => {
+                return <Picker.Item label={disciplina.nome_disc} value={disciplina.id}/>
+              })
+            } 
+          </Picker>
+        </View>
+        
+        <View style={styles.dropdown}>
+          <Text style={styles.texto}>Professor</Text>
+          <Picker
+            selectedValue={professorSelecionado}
+            style={{ height: 50}}
+            onValueChange={(itemValue) => setProfessorSelecionado(itemValue)}
+          >
+            <Picker.Item label="Seleciona um professor" value="0"/>
+            {
+              professores.map(professor => {
+                return <Picker.Item label={professor.nome} value={professor.id}/>
+              })
+            } 
+          </Picker>
         </View>
 
-        <Text style={styles.texto}>Codigo do professor</Text>
-        <TextInput
-          style={styles.input}
-          value={formTurmas.cod_prof}
-          onChangeText={cod_prof => setFormTurmas({ ...formTurmas, cod_prof }) }
-        />
-        
         <Text style={styles.texto}>Horario</Text>
         <TextInput
           style={styles.input}
@@ -98,20 +101,22 @@ export default function Turma() {
           onChangeText={ano => setFormTurmas({ ...formTurmas, ano }) }
         />
 
-        <Button
-          title="Salvar Turma"
-          onPress={() => {
-            setTurmas([...turmas, formTurmas]);
-            setFormTurmas({
-              cod_disc: '',
-              cod_prof: '',
-              ano: '',
-              horario: '',
-            });
-          }}
-        />
-        
+        <View style={styles.button}>
+          <Button
+            title="Salvar Turma"
+            onPress={() => {
+              setTurmas([...turmas, formTurmas]);
+              setFormTurmas({
+                cod_disc: '',
+                cod_prof: '',
+                ano: '',
+                horario: '',
+              });
+            }}
+          />
         </View>
+        
+      </View>
 
         <FlatList
           data={turmas}
