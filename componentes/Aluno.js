@@ -19,7 +19,7 @@ export default function Aluno() {
     cidade: '',
     foto: '',
   });
-
+  
   useEffect(() => {
     const q = query(collection(db, "Aluno"));
     onSnapshot(q, (querySnapshot) => {
@@ -29,8 +29,8 @@ export default function Aluno() {
     });
   }, []);
 
-  const postAluno = (value) => {
-    addDoc(myDoc, value)
+  const postAluno = async (value) => {
+    await addDoc(myDoc, value)
       .then(() => alert("Aluno Salvo!"))
       .catch((error) => alert(error.message));
   }

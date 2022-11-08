@@ -23,6 +23,7 @@ export default function Turma() {
   useEffect(() => {
     console.log("Disciplina Selecionada: ", disciplinaSelecionada)
     console.log("Professor Selecionado: ", professorSelecionado)
+    console.log("Turmas: ", turmas)
   })
 
   const [turmas, setTurmas] = useState([]);
@@ -57,12 +58,12 @@ export default function Turma() {
         <View style={styles.dropdown}>
           <Text style={styles.texto}>Disciplina</Text>
           <Picker
-            selectedValue={disciplinaSelecionada}
+            // selectedValue={disciplinaSelecionada}
+            selectedValue={formTurmas.cod_disc}
             style={{ height: 50 }}
             onValueChange={(itemValue) => setDisciplinaSelecionada(itemValue)}
-            // onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
           >
-            <Picker.Item label="Seleciona uma disciplina" value=""/>
+            <Picker.Item label="Seleciona uma disciplina" value="0"/>
             {
               disciplinas.map(disciplina => {
                 return <Picker.Item label={disciplina.nome_disc} value={disciplina.id}/>
@@ -112,6 +113,7 @@ export default function Turma() {
                 ano: '',
                 horario: '',
               });
+              console.log(formTurmas)
             }}
           />
         </View>
