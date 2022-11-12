@@ -8,7 +8,6 @@ export function CurrentBackgroundContext({children}) {
 
   useEffect(() => {
     AsyncStorage.setItem('BACKGROUND', currentBackground).then();
-    console.log(currentBackground)
   }, [currentBackground]);
 
   return(

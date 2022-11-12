@@ -1,9 +1,7 @@
 import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet, Picker } from 'react-native';
 import { useContext, useState, useEffect } from 'react';
 import { BackgroundContext } from "../context/current-background";
-import SelectDropdown from 'react-native-select-dropdown'
-
-import { deleteDoc, query, collection, onSnapshot, doc, getDoc, setDoc, addDoc } from 'firebase/firestore';
+import { query, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../Core/Config';
 
 export default function Turma() {
@@ -11,14 +9,9 @@ export default function Turma() {
   const {currentBackground} = useContext(BackgroundContext);
 
   const [disciplinas, setDisciplinas] = useState([]);
-  const [disciplinaSelecionada, setDisciplinaSelecionada] = useState([
-    ''
-  ]);
-
+  const [disciplinaSelecionada, setDisciplinaSelecionada] = useState(['']);
   const [professores, setProfessor] = useState([]);
-  const [professorSelecionado, setProfessorSelecionado] = useState([
-    
-  ]);
+  const [professorSelecionado, setProfessorSelecionado] = useState([]);
 
   useEffect(() => {
     console.log("Disciplina Selecionada: ", disciplinaSelecionada)
@@ -58,15 +51,14 @@ export default function Turma() {
         <View style={styles.dropdown}>
           <Text style={styles.texto}>Disciplina</Text>
           <Picker
-            // selectedValue={disciplinaSelecionada}
             selectedValue={formTurmas.cod_disc}
             style={{ height: 50 }}
             onValueChange={(itemValue) => setDisciplinaSelecionada(itemValue)}
           >
             <Picker.Item label="Seleciona uma disciplina" value="0"/>
             {
-              disciplinas.map(disciplina => {
-                return <Picker.Item label={disciplina.nome_disc} value={disciplina.id}/>
+              disciplinas.map((disciplina, index) => {
+                return <Picker.Item key={index} label={disciplina.nome_disc} value={disciplina.id}/>
               })
             } 
           </Picker>
@@ -113,7 +105,6 @@ export default function Turma() {
                 ano: '',
                 horario: '',
               });
-              console.log(formTurmas)
             }}
           />
         </View>

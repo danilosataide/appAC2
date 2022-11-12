@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ce75a47-9ba2-4660-bd38-4af213f69142" name="Changes" comment="feature(configuracoes): added currentBackgrount to other pages">
-      <change afterPath="$PROJECT_DIR$/context/current-background.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/Aluno.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Aluno.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/Configuracoes.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Configuracoes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/Disciplina.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Disciplina.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/Historico.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Historico.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/Professor.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Professor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/componentes/Turma.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Turma.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/TurmasCadastradas.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/TurmasCadastradas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/context/current-background.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/context/current-background.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +56,7 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/home/santiago/Documentos/Santiago/appAC2/assets",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/home/santiago/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/222.4345.14/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "/home/santiago/Documentos/Santiago/appAC2/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>

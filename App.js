@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Button, ImageBackground, Text, View } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { Button, FlatList, Image, ImageBackground, Text, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Aluno from './componentes/Aluno';
@@ -9,12 +9,30 @@ import Turma from './componentes/Turma';
 import Historico from './componentes/Historico';
 import TurmasCadastradas from './componentes/TurmasCadastradas';
 import Configuracoes from './componentes/Configuracoes';
+import ImgDefaultUser from './assets/perfis/perfil.jpg';
 import { BackgroundContext, CurrentBackgroundContext } from "./context/current-background";
 
 const Pilha = createNativeStackNavigator();
 
 function TelaPrincipal(props) {
   const { currentBackground } = useContext(BackgroundContext);
+  const [groupMembers, setGroupMembers] = useState([
+    {
+      name: 'Santiago Delgado',
+      ra: 200791,
+      imageUrl: 'https://i.scdn.co/image/ab67616d0000b2735090e9a00a78363433eabea7',
+    },
+    {
+      name: 'Erick Santana',
+      ra: 200791,
+      imageUrl: undefined,
+    },
+    {
+      name: 'Danilo Ataide',
+      ra: 200791,
+      imageUrl: undefined,
+    },
+  ]);
 
   return (
     <View style={{height: '100%'}}>
@@ -56,6 +74,22 @@ function TelaPrincipal(props) {
         title="Configuracoes"
         onPress={() => props.navigation.navigate('Configuracoes')}
       />
+
+        <Text style={{ textAlign: 'center', marginTop: '2rem', fontSize: '1.5rem', fontWeight: 'bold' }}>Integrantes do grupo: </Text>
+        <FlatList
+          style={{ padding: '1rem' }}
+          data={groupMembers}
+          renderItem={({ item, index }) => <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginTop: '2rem', border: '1px solid black', borderRadius: '1rem', padding: '1rem', backgroundColor: '#9b9494' }}>
+            <View>
+              <Text>Nome: {item.name}</Text>
+              <Text>RA: {item.ra}</Text>
+            </View>
+            <Image
+              style={{height: '5rem', width: '5rem', borderRadius: '50%', resizeMode: 'contain'}}
+              source={item.imageUrl || ImgDefaultUser} />
+          </View>
+          }
+        />
       </ImageBackground>
     </View>
   );
