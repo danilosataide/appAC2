@@ -7,6 +7,7 @@ import { db } from '../Core/Config';
 export default function Turma() {
   const myDoc = collection(db, "Turma");
   const {currentBackground} = useContext(BackgroundContext);
+  const [idToEdit, setIdToEdit] = useState();
 
   const [disciplinas, setDisciplinas] = useState([]);
   const [disciplinaSelecionada, setDisciplinaSelecionada] = useState(['']);
@@ -16,7 +17,7 @@ export default function Turma() {
   useEffect(() => {
     console.log("Disciplina Selecionada: ", disciplinaSelecionada)
     console.log("Professor Selecionado: ", professorSelecionado)
-    console.log("Turmas: ", turmas)
+    console.log("Turmas: ", formTurmas)
   })
 
   const [turmas, setTurmas] = useState([]);
@@ -53,12 +54,15 @@ export default function Turma() {
           <Picker
             selectedValue={formTurmas.cod_disc}
             style={{ height: 50 }}
-            onValueChange={(itemValue) => setDisciplinaSelecionada(itemValue)}
+            onValueChange={(itemValue) => {
+              setFormTurmas({...formTurmas, cod_disc:itemValue})
+              setDisciplinaSelecionada(itemValue)
+            }}
           >
             <Picker.Item label="Seleciona uma disciplina" value="0"/>
             {
               disciplinas.map((disciplina, index) => {
-                return <Picker.Item key={index} label={disciplina.nome_disc} value={disciplina.id}/>
+                return <Picker.Item key={index} label={disciplina.nome_disc} value={disciplina.cod_disc }/>
               })
             } 
           </Picker>
@@ -69,12 +73,15 @@ export default function Turma() {
           <Picker
             selectedValue={professorSelecionado}
             style={{ height: 50}}
-            onValueChange={(itemValue) => setProfessorSelecionado(itemValue)}
+            onValueChange={(itemValue) => {
+              setFormTurmas({...formTurmas, cod_prof:itemValue})
+              setProfessorSelecionado(itemValue)
+            }}
           >
             <Picker.Item label="Seleciona um professor" value="0"/>
             {
-              professores.map(professor => {
-                return <Picker.Item label={professor.nome} value={professor.id}/>
+              professores.map((professor, index) => {
+                return <Picker.Item key={index} label={professor.nome} value={professor.cod_prof}/>
               })
             } 
           </Picker>
@@ -95,7 +102,7 @@ export default function Turma() {
         />
 
         <View style={styles.button}>
-          <Button
+          {/* <Button
             title="Salvar Turma"
             onPress={() => {
               setTurmas([...turmas, formTurmas]);
@@ -106,7 +113,49 @@ export default function Turma() {
                 horario: '',
               });
             }}
-          />
+          /> */}
+          <Button
+              title={idToEdit ? 'Editar Turma' : 'Adicionar Turma'}
+              color="#2196F3"
+              onPress={async () => {
+                if (idToEdit) {
+                  setDoc(doc(db, "Turma", idToEdit), {
+                    cod_disc: formTurmas.cod_disc,
+                    cod_prof: formTurmas.cod_prof,
+                    ano: formTurmas.ano,
+                    horario: formTurmas.horario,
+                  },{merge:true})
+                  .then(() => {
+                    alert("Alterações salvas!")
+                  })
+                  .catch((error) => {
+                    alert(error.message)
+                  });
+                  
+                  turmas.forEach((turma, index) => {
+                    if (turma.id === idToEdit)
+                      turmas[index] = { ...formTurmas, id: idToEdit};
+                    else
+                      turmas[index] = turma;
+                  });
+      
+                  setIdToEdit(undefined);
+                  setTurmas(turmas);
+                } else {
+                  const cot = {...formTurmas, cod_turma:turmas.length+1}
+                  setFormTurmas(cot)
+                  setTurmas([...turmas, cot])
+                  await postTurma(cot);
+                }
+
+                setFormTurmas({
+                  cod_disc: '',
+                  cod_prof: '',
+                  ano: '',
+                  horario: '',
+                });
+              }}
+            />
         </View>
         
       </View>

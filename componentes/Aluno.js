@@ -40,6 +40,17 @@ export default function Aluno() {
     setFormAlunos(personData);
   }
 
+  const Delete = (value) => {
+    const myDoc = doc(db, "Aluno", value)
+
+    deleteDoc(myDoc)
+      .then(() => {
+        alert("Deleted Successfully!")
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
+  }
 
   return (
     <View style={styles.container}>
@@ -135,6 +146,13 @@ export default function Aluno() {
                 title="Editar"
                 onPress={() => addToEditMode(item)}  
               />
+              <Button title='Excluir'
+                onPress={() => {
+                  Delete(
+                    item.id
+                  )
+                }}
+              ></Button>
             </>
             }
           />

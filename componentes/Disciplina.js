@@ -2,17 +2,19 @@ import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet } 
 import { useContext, useState, useEffect } from 'react';
 import { BackgroundContext } from "../context/current-background";
 
-import { deleteDoc, query, collection, onSnapshot, doc, getDoc, setDoc, addDoc } from 'firebase/firestore';
+import { deleteDoc, query, collection, onSnapshot, doc, getDoc, getDocs, setDoc, addDoc } from 'firebase/firestore';
 import { db } from '../Core/Config';
 
 export default function Disciplina() {
   const myDoc = collection(db, "Disciplina");
+  const snapshot = getDocs(myDoc).then()
 
   const { currentBackground } = useContext(BackgroundContext);
 
   const [idToEdit, setIdToEdit] = useState();
   const [disciplinas, setDisciplinas] = useState([]);
   const [formDisciplinas, setFormDisciplinas] = useState({
+    cod_disc: '',
     carga_hor: '',
     nome_disc: '',
   });
@@ -30,6 +32,19 @@ export default function Disciplina() {
     addDoc(myDoc, value)
       .then(() => alert("Disciplina Salva!"))
       .catch((error) => alert(error.message));
+  }
+
+  const Delete = (value) => {
+    const myDoc = doc(db, "Disciplina", value)
+
+    deleteDoc(myDoc)
+      .then(() => {
+        alert("Deleted Successfully!")
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
+
   }
 
   const addToEditMode = (personData) => {
@@ -83,11 +98,14 @@ export default function Disciplina() {
                   setIdToEdit(undefined);
                   setDisciplinas(disciplinas);
                 } else {
-                  setDisciplinas([...disciplinas, formDisciplinas]);
-                  await postDisciplina(formDisciplinas);
+                  const cot = {...formDisciplinas, cod_disc:disciplinas.length+1}
+                  setFormDisciplinas(cot)
+                  setDisciplinas([...disciplinas, cot])
+                  await postDisciplina(cot);
                 }
 
                 setFormDisciplinas({
+                  cod_disc: '',
                   carga_hor: '',
                   nome_disc: '',
                 });
@@ -106,6 +124,13 @@ export default function Disciplina() {
                 title="Editar"
                 onPress={() => addToEditMode(item)}  
               />
+              <Button title='Excluir'
+                onPress={() => {
+                  Delete(
+                    item.id
+                  )
+                }}
+              ></Button>
             </>
             }
           />

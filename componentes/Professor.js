@@ -39,6 +39,18 @@ export default function Professor() {
     setFormProfessores(personData);
   }
 
+  const Delete = (value) => {
+    const myDoc = doc(db, "Professor", value)
+
+    deleteDoc(myDoc)
+      .then(() => {
+        alert("Deleted Successfully!")
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground style={{ height: '100%' }} source={currentBackground}>
@@ -93,8 +105,10 @@ export default function Professor() {
                   setIdToEdit(undefined);
                   setProfessores(professores);
                 } else {
-                  setProfessores([...professores, formProfessores]);
-                  await postProfessor(formProfessores);
+                  const cot = {...formProfessores, cod_prof:professores.length+1}
+                  setFormProfessores(cot)
+                  setProfessores([...professores, cot])
+                  await postProfessor(cot);
                 }
 
                 setFormProfessores({
@@ -118,6 +132,13 @@ export default function Professor() {
                 title="Editar"
                 onPress={() => addToEditMode(item)}  
               />
+              <Button title='Excluir'
+                onPress={() => {
+                  Delete(
+                    item.id
+                  )
+                }}
+              ></Button>
             </>
             }
           />
