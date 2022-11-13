@@ -1,7 +1,7 @@
 import { Button, FlatList, ImageBackground, Text, TextInput, View } from 'react-native';
 import { useContext, useEffect, useState } from 'react';
 import { BackgroundContext } from "../context/current-background";
-import { addDoc, collection, doc, onSnapshot, query, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, query, setDoc } from "firebase/firestore";
 import { db } from "../Core/Config";
 
 export default function Historico() {
@@ -41,6 +41,21 @@ export default function Historico() {
   const addToEditMode = (histData) => {
     setIdToEdit(histData.id);
     setFormHistoricos(histData);
+  }
+
+  const deleteHistorico = async (id) => {
+    const myDoc = doc(db, "Histórico", id)
+
+    deleteDoc(myDoc)
+      .then(() => {
+        const hist = historicos;
+        hist.splice(index, 1);
+        setHistoricos(hist);
+        alert("Historico deletado!");
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
   }
 
   return (
@@ -121,13 +136,17 @@ export default function Historico() {
         <FlatList
           data={historicos}
           renderItem={({item, index}) => <>
-            <Text key={index}>
+            <Text key={index} style={{ marginTop: '2rem' }}>
               Matricula: {item.matricula || 'nenhum'}, Turma: {item.cod_turma || 'nenhum'},
               Frequencia: {item.frequencia || 'nenhum'}, Nota: {item.nota || 'nenhum'}
             </Text>
             <Button
               title="Editar"
               onPress={() => addToEditMode(item)}
+            />
+            <Button
+              title="Apagar"
+              onPress={async () => await deleteHistorico(item.id)}
             />
           </>}
         />
