@@ -24,12 +24,12 @@ function TelaPrincipal(props) {
     },
     {
       name: 'Erick Santana',
-      ra: 200791,
+      ra: 200577,
       imageUrl: undefined,
     },
     {
       name: 'Danilo Ataide',
-      ra: 200791,
+      ra: 200886,
       imageUrl: undefined,
     },
   ]);
