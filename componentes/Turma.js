@@ -1,7 +1,7 @@
 import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet, Picker } from 'react-native';
 import { useContext, useState, useEffect } from 'react';
 import { BackgroundContext } from "../context/current-background";
-import { query, collection, onSnapshot } from 'firebase/firestore';
+import { deleteDoc, query, collection, onSnapshot, doc, setDoc, addDoc } from 'firebase/firestore';
 import { db } from '../Core/Config';
 
 export default function Turma() {
@@ -14,12 +14,6 @@ export default function Turma() {
   const [professores, setProfessor] = useState([]);
   const [professorSelecionado, setProfessorSelecionado] = useState([]);
 
-  useEffect(() => {
-    console.log("Disciplina Selecionada: ", disciplinaSelecionada)
-    console.log("Professor Selecionado: ", professorSelecionado)
-    console.log("Turmas: ", formTurmas)
-  })
-
   const [turmas, setTurmas] = useState([]);
   const [formTurmas, setFormTurmas] = useState({
     cod_turma: '',
@@ -30,6 +24,13 @@ export default function Turma() {
   });
 
   useEffect(() => {
+    const p = query(collection(db, "Turma"));
+    onSnapshot(p, (querySnapshot) => {
+      const result = [];
+      querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
+      setTurmas(result);
+    });
+
     const q = query(collection(db, "Disciplina"));
     onSnapshot(q, (querySnapshot) => {
       const result = [];
@@ -37,13 +38,37 @@ export default function Turma() {
       setDisciplinas(result);
     });
 
-    const p = query(collection(db, "Professor"));
-    onSnapshot(p, (querySnapshot) => {
+    const r = query(collection(db, "Professor"));
+    onSnapshot(r, (querySnapshot) => {
       const result = [];
       querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
       setProfessor(result);
     });
   }, []);
+
+  const postTurma = (value) => {
+    addDoc(myDoc, value)
+      .then(() => alert("Turma Salva!"))
+      .catch((error) => alert(error.message));
+  }
+
+  const Delete = (value) => {
+    const myDoc = doc(db, "Turma", value)
+
+    deleteDoc(myDoc)
+      .then(() => {
+        alert("Turma excluída!")
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
+
+  }
+
+  const addToEditMode = (personData) => {
+    setIdToEdit(personData.id);
+    setFormTurmas(personData);
+  }
 
   return (
     <View style={styles.container}>
@@ -71,8 +96,8 @@ export default function Turma() {
         <View style={styles.dropdown}>
           <Text style={styles.texto}>Professor</Text>
           <Picker
-            selectedValue={professorSelecionado}
-            style={{ height: 50}}
+            selectedValue={formTurmas.cod_prof}
+            style={{ height: 50 }}
             onValueChange={(itemValue) => {
               setFormTurmas({...formTurmas, cod_prof:itemValue})
               setProfessorSelecionado(itemValue)
@@ -81,7 +106,7 @@ export default function Turma() {
             <Picker.Item label="Seleciona um professor" value="0"/>
             {
               professores.map((professor, index) => {
-                return <Picker.Item key={index} label={professor.nome} value={professor.cod_prof}/>
+                return <Picker.Item key={index} label={professor.nome} value={professor.cod_prof }/>
               })
             } 
           </Picker>
@@ -102,18 +127,6 @@ export default function Turma() {
         />
 
         <View style={styles.button}>
-          {/* <Button
-            title="Salvar Turma"
-            onPress={() => {
-              setTurmas([...turmas, formTurmas]);
-              setFormTurmas({
-                cod_disc: '',
-                cod_prof: '',
-                ano: '',
-                horario: '',
-              });
-            }}
-          /> */}
           <Button
               title={idToEdit ? 'Editar Turma' : 'Adicionar Turma'}
               color="#2196F3"
@@ -149,6 +162,7 @@ export default function Turma() {
                 }
 
                 setFormTurmas({
+                  cod_turma: '',
                   cod_disc: '',
                   cod_prof: '',
                   ano: '',
@@ -162,9 +176,23 @@ export default function Turma() {
 
         <FlatList
           data={turmas}
-          renderItem={({item, index}) => <Text key={index}>
-            Disciplina: {item.cod_disc}, Professor: {item.cod_prof}, Ano: {item.ano}, Horario: {item.horario}
-          </Text>}
+          renderItem={({ item, index }) => <>
+              <Text key={index}>
+                Disciplina: {item.cod_disc}, Professor: {item.cod_prof}, Ano: {item.ano}, Horario: {item.horario}
+              </Text>
+              <Button 
+                title="Editar"
+                onPress={() => addToEditMode(item)}  
+              />
+              <Button title='Excluir'
+                onPress={() => {
+                  Delete(
+                    item.id
+                  )
+                }}
+              ></Button>
+            </>
+            }
         />
         
         </ImageBackground>

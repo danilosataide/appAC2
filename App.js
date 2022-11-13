@@ -12,6 +12,7 @@ import Turma from "./componentes/Turma";
 import Historico from "./componentes/Historico";
 import TurmasCadastradas from "./componentes/TurmasCadastradas";
 import Configuracoes from "./componentes/Configuracoes";
+import { FontAwesome } from '@expo/vector-icons';
 
 const Pilha = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -138,9 +139,36 @@ export default function App() {
     <CurrentBackgroundContext>
       <NavigationContainer independent={true}>
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Menu" component={MenuScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen options={{ 
+            headerShown: false,
+            tabBarIcon: ({ size, focused }) => {
+              if(focused) {
+                return <FontAwesome name='home' size={size} color="blue" />
+              }
+  
+                return <FontAwesome name='home' size={size} color="black" />
+              }
+            }} name="Home" component={HomeScreen} />
+          <Tab.Screen options={{ 
+            headerShown: false, 
+            tabBarIcon: ({ size, focused }) => {
+              if(focused) {
+                return <FontAwesome name='navicon' size={size} color="blue" />
+              }
+
+                return <FontAwesome name='navicon' size={size} color="black" />
+              }
+            }} name="Menu" component={MenuScreen} />
+          <Tab.Screen options={{ 
+            headerShown: false,
+            tabBarIcon: ({ size, focused }) => {
+              if(focused) {
+                return <FontAwesome name='cog' size={size} color="blue" />
+              }
+
+                return <FontAwesome name='cog' size={size} color="black" />
+              }  
+            }} name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </CurrentBackgroundContext>

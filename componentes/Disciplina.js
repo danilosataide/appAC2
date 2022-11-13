@@ -2,12 +2,11 @@ import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet } 
 import { useContext, useState, useEffect } from 'react';
 import { BackgroundContext } from "../context/current-background";
 
-import { deleteDoc, query, collection, onSnapshot, doc, getDoc, getDocs, setDoc, addDoc } from 'firebase/firestore';
+import { deleteDoc, query, collection, onSnapshot, doc, setDoc, addDoc } from 'firebase/firestore';
 import { db } from '../Core/Config';
 
 export default function Disciplina() {
   const myDoc = collection(db, "Disciplina");
-  const snapshot = getDocs(myDoc).then()
 
   const { currentBackground } = useContext(BackgroundContext);
 
@@ -39,7 +38,7 @@ export default function Disciplina() {
 
     deleteDoc(myDoc)
       .then(() => {
-        alert("Deleted Successfully!")
+        alert("Disciplina excluída!")
       })
       .catch((error) => {
         alert(error.message)
