@@ -9,8 +9,13 @@ export default function Historico() {
   const {currentBackground} = useContext(BackgroundContext);
 
   const [idToEdit, setIdToEdit] = useState();
+
+  const [turmas, setTurmas] = useState([]);
+  const [alunos, setAlunos] = useState([]);
+
   const [historicos, setHistoricos] = useState([]);
   const [formHistoricos, setFormHistoricos] = useState({
+    cod_historico: '',
     matricula: '',
     cod_turma: '',
     frequencia: '',
@@ -61,12 +66,22 @@ export default function Historico() {
   return (
     <View style={{height: '100%'}}>
       <ImageBackground style={{height: '100%'}} source={currentBackground}>
-        <Text style={{marginTop: '1rem'}}>Matricula</Text>
-        <TextInput
-          style={{border: '1px solid #000000'}}
-          value={formHistoricos.matricula}
-          onChangeText={matricula => setFormHistoricos({...formHistoricos, matricula})}
-        />
+        <Text style={{marginTop: '1rem'}}>Matricula do Aluno</Text>
+        <Picker
+          selectedValue={formHistorico.matricula}
+          style={{ height: 50 }}
+          onValueChange={(itemValue) => {
+            setFormHistorico({...formTurmas, cod_disc:itemValue})
+            setDisciplinaSelecionada(itemValue)
+          }}
+        >
+          <Picker.Item label="Seleciona uma disciplina" value="0"/>
+          {
+            disciplinas.map((disciplina, index) => {
+              return <Picker.Item key={index} label={disciplina.nome_disc} value={disciplina.cod_disc }/>
+            })
+          } 
+        </Picker>
 
         <Text style={{marginTop: '1rem'}}>Codigo da turma</Text>
         <TextInput

@@ -10,10 +10,8 @@ export default function Turma() {
   const [idToEdit, setIdToEdit] = useState();
 
   const [disciplinas, setDisciplinas] = useState([]);
-  const [disciplinaSelecionada, setDisciplinaSelecionada] = useState(['']);
   const [professores, setProfessor] = useState([]);
-  const [professorSelecionado, setProfessorSelecionado] = useState([]);
-
+  
   const [turmas, setTurmas] = useState([]);
   const [formTurmas, setFormTurmas] = useState({
     cod_turma: '',
