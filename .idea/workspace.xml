@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ce75a47-9ba2-4660-bd38-4af213f69142" name="Changes" comment="feature(historico): added group members">
+    <list default="true" id="6ce75a47-9ba2-4660-bd38-4af213f69142" name="Changes" comment="feature(historico): added delete button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/Historico.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Historico.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/componentes/Professor.js" beforeDir="false" afterPath="$PROJECT_DIR$/componentes/Professor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +78,7 @@
       <workItem from="1667248088429" duration="1925000" />
       <workItem from="1667302467698" duration="159000" />
       <workItem from="1667421513052" duration="6125000" />
-      <workItem from="1668355156410" duration="7781000" />
+      <workItem from="1668355156410" duration="9722000" />
     </task>
     <task id="LOCAL-00001" summary="create(turmasCadastradas): new page">
       <created>1666916953781</created>
@@ -116,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668365418972</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feature(historico): added delete button">
+      <created>1668369390371</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1668369390371</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +146,7 @@
     <MESSAGE value="feature(configuracoes): added currentBackgrount to other pages" />
     <MESSAGE value="feature(app.js): added group members" />
     <MESSAGE value="feature(historico): added group members" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature(historico): added group members" />
+    <MESSAGE value="feature(historico): added delete button" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature(historico): added delete button" />
   </component>
 </project>

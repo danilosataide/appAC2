@@ -3,15 +3,15 @@ import { Button, FlatList, Image, ImageBackground, Text, View } from 'react-nati
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Aluno from './componentes/Aluno';
-import Disciplina from './componentes/Disciplina';
-import Professor from './componentes/Professor';
-import Turma from './componentes/Turma';
-import Historico from './componentes/Historico';
-import TurmasCadastradas from './componentes/TurmasCadastradas';
-import Configuracoes from './componentes/Configuracoes';
 import ImgDefaultUser from './assets/perfis/perfil.jpg';
 import { BackgroundContext, CurrentBackgroundContext } from "./context/current-background";
+import Disciplina from "./componentes/Disciplina";
+import Aluno from "./componentes/Aluno";
+import Professor from "./componentes/Professor";
+import Turma from "./componentes/Turma";
+import Historico from "./componentes/Historico";
+import TurmasCadastradas from "./componentes/TurmasCadastradas";
+import Configuracoes from "./componentes/Configuracoes";
 
 const Pilha = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,7 +38,7 @@ function HomeScreen(props) {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ImageBackground style={{ height: '100%' }} source={currentBackground}>
+      <ImageBackground style={{ flex: 1, height: '100%', width: '100%' }} source={currentBackground}>
         <Text style={{ textAlign: 'center', marginTop: '2rem', fontSize: '1.5rem', fontWeight: 'bold' }}>Integrantes do grupo: </Text>
         <FlatList
           style={{ padding: '1rem' }}
@@ -59,13 +59,13 @@ function HomeScreen(props) {
   );
 }
 
-function TelaPrincipal() {
+function TelaPrincipal(props) {
   const { currentBackground } = useContext(BackgroundContext);
 
     return (
       
     <View style={{ height: '100%', flex:1 }}>
-      <ImageBackground source={currentBackground}>
+      <ImageBackground style={{ flex: 1, width: '100%' }} source={currentBackground}>
       <Text>APP UNIVERSIDADE</Text>
 
       <Button
@@ -111,8 +111,8 @@ function TelaPrincipal() {
 function MenuScreen() {
 
   return (
-    <Pilha.Navigator>
-      {/* <Pilha.Screen name='Teste' component={Teste}/> */}
+    <NavigationContainer independent={true}>
+      <Pilha.Navigator>
         <Pilha.Screen name='TelaPrincipal' component={TelaPrincipal} options={{title: 'Principal'}}/>
         <Pilha.Screen name='Aluno' component={Aluno}/>
         <Pilha.Screen name='Disciplina' component={Disciplina}/>
@@ -121,14 +121,7 @@ function MenuScreen() {
         <Pilha.Screen name='Historico' component={Historico}/>
         <Pilha.Screen name='TurmasCadastradas' component={TurmasCadastradas}/>
       </Pilha.Navigator>
-  );
-}
-
-function Teste() {
-  return (
-    <View style={{ height: '100%' }}>
-      <Text>dasdsa</Text>
-    </View>
+    </NavigationContainer>
   );
 }
 
