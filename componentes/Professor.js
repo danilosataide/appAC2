@@ -2,7 +2,7 @@ import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet } 
 import { useContext, useState, useEffect } from 'react';
 import { BackgroundContext } from "../context/current-background";
 
-import { deleteDoc, query, collection, onSnapshot, doc, getDoc, setDoc, addDoc } from 'firebase/firestore';
+import { deleteDoc, query, collection, onSnapshot, doc, setDoc, addDoc } from 'firebase/firestore';
 import { db } from '../Core/Config';
 
 export default function Professor() {
@@ -37,6 +37,21 @@ export default function Professor() {
   const addToEditMode = (personData) => {
     setIdToEdit(personData.id);
     setFormProfessores(personData);
+  }
+
+  const deleteProfessor = async (id) => {
+    const myDoc = doc(db, "Professor", id)
+
+    deleteDoc(myDoc)
+      .then(() => {
+        const prof = professores;
+        prof.splice(index, 1);
+        setProfessores(prof);
+        alert("Professor deletado!");
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
   }
 
   return (
@@ -111,12 +126,16 @@ export default function Professor() {
         <FlatList
             data={professores}
             renderItem={({ item, index }) => <>
-              <Text key={index}>
+              <Text key={index} style={{ marginTop: '2rem' }}>
                 Nome: {item.nome}, Endereço: {item.endereco}, Cidade: {item.cidade}
               </Text>
               <Button 
                 title="Editar"
                 onPress={() => addToEditMode(item)}  
+              />
+              <Button
+                title="Apagar"
+                onPress={async () => await deleteProfessor(item.id)}
               />
             </>
             }
