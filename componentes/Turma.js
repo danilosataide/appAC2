@@ -79,7 +79,6 @@ export default function Turma() {
             style={{ height: 50 }}
             onValueChange={(itemValue) => {
               setFormTurmas({...formTurmas, cod_disc:itemValue})
-              setDisciplinaSelecionada(itemValue)
             }}
           >
             <Picker.Item label="Seleciona uma disciplina" value="0"/>
@@ -98,7 +97,6 @@ export default function Turma() {
             style={{ height: 50 }}
             onValueChange={(itemValue) => {
               setFormTurmas({...formTurmas, cod_prof:itemValue})
-              setProfessorSelecionado(itemValue)
             }}
           >
             <Picker.Item label="Seleciona um professor" value="0"/>

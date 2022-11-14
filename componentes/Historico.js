@@ -14,7 +14,6 @@ export default function Historico() {
   const [alunos, setAlunos] = useState([]);
   const [disciplinas, setDisciplinas] = useState([]);
 
-
   const [historicos, setHistoricos] = useState([]);
   const [formHistoricos, setFormHistoricos] = useState({
     cod_historico: '',
@@ -41,7 +40,7 @@ export default function Historico() {
       setAlunos(result);
     });
 
-    const r = query(collection(db, "Historico"));
+    const r = query(collection(db, "Histórico"));
     onSnapshot(r, (querySnapshot) => {
       const result = [];
       querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
@@ -80,10 +79,6 @@ export default function Historico() {
       .catch((error) => {
         alert(error.message)
       })
-  }
-
-  const buscarDisciplina = async (id) => {
-        
   }
 
   return (
