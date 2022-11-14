@@ -31,7 +31,7 @@ function HomeScreen(props) {
       imageUrl: undefined,
     },
     {
-      name: 'Danilo Ataide',
+      name: 'Danilo da Silva Ataide',
       ra: 200886,
       imageUrl: undefined,
     },
