@@ -99,11 +99,6 @@ function TelaPrincipal(props) {
         title="Turmas cadastradas"
         onPress={() => props.navigation.navigate('TurmasCadastradas')}
       />
-      <Button
-        style={{backgroundColor: 'blue'}}
-        title="Configuracoes"
-        onPress={() => props.navigation.navigate('Configuracoes')}
-      />
       </ImageBackground>
     </View>
   );

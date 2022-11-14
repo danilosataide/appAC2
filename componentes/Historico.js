@@ -1,4 +1,4 @@
-import { Button, FlatList, ImageBackground, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, ImageBackground, Text, TextInput, View, StyleSheet, Picker } from 'react-native';
 import { useContext, useEffect, useState } from 'react';
 import { BackgroundContext } from "../context/current-background";
 import { addDoc, collection, deleteDoc, doc, onSnapshot, query, setDoc } from "firebase/firestore";
@@ -12,6 +12,8 @@ export default function Historico() {
 
   const [turmas, setTurmas] = useState([]);
   const [alunos, setAlunos] = useState([]);
+  const [disciplinas, setDisciplinas] = useState([]);
+
 
   const [historicos, setHistoricos] = useState([]);
   const [formHistoricos, setFormHistoricos] = useState({
@@ -22,18 +24,35 @@ export default function Historico() {
     nota: '',
   });
 
+
+
   useEffect(() => {
-    const q = query(myDoc);
+    const p = query(collection(db, "Turma"));
+    onSnapshot(p, (querySnapshot) => {
+      const result = [];
+      querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
+      setTurmas(result);
+    });
+
+    const q = query(collection(db, "Aluno"));
     onSnapshot(q, (querySnapshot) => {
       const result = [];
-      querySnapshot.forEach((doc) => result.push({
-        cod_turma: doc.data()?.cod_turma?.toString(),
-        frequencia: doc.data()?.frequencia?.toString(),
-        nota: doc.data()?.data?.toString(),
-        matricula: doc.data()?.matricula?.toString(),
-        id: doc.id,
-      }));
+      querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
+      setAlunos(result);
+    });
+
+    const r = query(collection(db, "Historico"));
+    onSnapshot(r, (querySnapshot) => {
+      const result = [];
+      querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
       setHistoricos(result);
+    });
+
+    const s = query(collection(db, "Disciplina"));
+    onSnapshot(s, (querySnapshot) => {
+      const result = [];
+      querySnapshot.forEach((doc) => result.push({ ...doc.data(), id: doc.id }));
+      setDisciplinas(result);
     });
   }, []);
 
@@ -63,32 +82,44 @@ export default function Historico() {
       })
   }
 
+  const buscarDisciplina = async (id) => {
+        
+  }
+
   return (
     <View style={{height: '100%'}}>
       <ImageBackground style={{height: '100%'}} source={currentBackground}>
         <Text style={{marginTop: '1rem'}}>Matricula do Aluno</Text>
         <Picker
-          selectedValue={formHistorico.matricula}
+          selectedValue={formHistoricos.matricula}
           style={{ height: 50 }}
           onValueChange={(itemValue) => {
-            setFormHistorico({...formTurmas, cod_disc:itemValue})
-            setDisciplinaSelecionada(itemValue)
+            setFormHistoricos({...formHistoricos, matricula:itemValue})
           }}
         >
-          <Picker.Item label="Seleciona uma disciplina" value="0"/>
+          <Picker.Item label="Seleciona um aluno" value="0"/>
           {
-            disciplinas.map((disciplina, index) => {
-              return <Picker.Item key={index} label={disciplina.nome_disc} value={disciplina.cod_disc }/>
+            alunos.map((aluno, index) => {
+              return <Picker.Item key={index} label={aluno.nome} value={alunos.matricula }/>
             })
           } 
         </Picker>
 
-        <Text style={{marginTop: '1rem'}}>Codigo da turma</Text>
-        <TextInput
-          style={{border: '1px solid #000000'}}
-          value={formHistoricos.cod_turma}
-          onChangeText={cod_turma => setFormHistoricos({...formHistoricos, cod_turma})}
-        />
+        <Text>Turma</Text>
+          <Picker
+            selectedValue={formHistoricos.cod_turma}
+            style={{ height: 50 }}
+            onValueChange={(itemValue) => {
+              setFormHistoricos({...formHistoricos, cod_turma:itemValue})
+            }}
+          >
+            <Picker.Item label="Seleciona uma turma" value="0"/>
+            {
+              turmas.map((turma, index) => {
+                return <Picker.Item key={index} label={turma.cod_turma} value={turma.cod_turma}/>
+              })
+            } 
+          </Picker>
 
         <Text style={{marginTop: '1rem'}}>Frequencia</Text>
         <TextInput
@@ -118,7 +149,7 @@ export default function Historico() {
                   alert("Alterações salvas!")
                 })
                 .catch((error) => {
-                  alert(error.message)
+                  alert(error.message)  
                 });
 
               historicos.forEach((hist, index) => {
@@ -131,7 +162,9 @@ export default function Historico() {
               setIdToEdit(undefined);
               setHistoricos(historicos);
             } else {
-              setHistoricos([...historicos, formHistoricos]);
+              const cot = {...formHistoricos, cod_historico:historicos.length+1}
+              setFormHistoricos(cot)
+              setHistoricos([...historicos, cot])
               await postHistorico(formHistoricos);
             }
 
